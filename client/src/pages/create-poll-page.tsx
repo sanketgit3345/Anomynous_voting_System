@@ -97,7 +97,7 @@ export default function CreatePollPage() {
       title: data.title,
       description: data.description,
       options: filteredOptions,
-      expiresAt,
+      expiresAt: expiresAt.toISOString(), // Convert to ISO string explicitly
       isAnonymized: data.isAnonymized
     };
     

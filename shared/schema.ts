@@ -70,7 +70,10 @@ export type User = typeof users.$inferSelect;
 export type LoginUser = z.infer<typeof loginUserSchema>;
 
 export type Poll = typeof polls.$inferSelect;
-export type InsertPoll = z.infer<typeof insertPollSchema>;
+// For client-to-server communication, allow expiresAt to be a string
+export type InsertPoll = z.infer<typeof insertPollSchema> & {
+  expiresAt: string | Date;
+};
 
 export type Vote = typeof votes.$inferSelect;
 export type InsertVote = z.infer<typeof insertVoteSchema>;

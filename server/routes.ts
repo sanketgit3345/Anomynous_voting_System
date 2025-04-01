@@ -31,7 +31,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Create a new poll
   app.post("/api/polls", authenticateJWT, async (req, res) => {    
     try {
-      const pollData = insertPollSchema.parse(req.body);
+      // Manually handle the date conversion before validation
+      const requestData = req.body;
+      
+      // If expiresAt is a string, convert it to a Date object
+      if (requestData.expiresAt && typeof requestData.expiresAt === 'string') {
+        requestData.expiresAt = new Date(requestData.expiresAt);
+      }
+      
+      const pollData = insertPollSchema.parse(requestData);
       const poll = await mongoStorage.createPoll({
         ...pollData,
         createdBy: req.user!.id
