@@ -31,12 +31,23 @@ export const polls = pgTable("polls", {
   isAnonymized: boolean("is_anonymized").default(true).notNull()
 });
 
-export const insertPollSchema = createInsertSchema(polls).pick({
+// Create the base schema, then transform the expiresAt field to handle ISO date strings
+const basePollSchema = createInsertSchema(polls).pick({
   title: true,
   description: true,
   options: true,
   expiresAt: true,
   isAnonymized: true,
+});
+
+export const insertPollSchema = basePollSchema.extend({
+  expiresAt: z.preprocess(
+    (arg) => {
+      if (typeof arg === 'string' || arg instanceof Date) return new Date(arg);
+      return arg;
+    },
+    z.date()
+  )
 });
 
 export const votes = pgTable("votes", {
