@@ -79,10 +79,6 @@ export default function AuthPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center">
-          <ShieldCheck className="h-12 w-12 text-indigo-600" />
-        </div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">VoteSafe</h2>
         <p className="mt-2 text-center text-sm text-gray-600">
           Secure online voting with anonymity and real-time results
         </p>
@@ -160,7 +156,7 @@ export default function AuthPage() {
                     <Button 
                       variant="link" 
                       onClick={() => setActiveTab("register")}
-                      className="ml-1 p-0 h-auto text-indigo-600 hover:text-indigo-500"
+                      className="ml-1 p-0 h-auto text-gray-600 hover:text-gray-500"
                     >
                       Sign up
                     </Button>
@@ -243,7 +239,7 @@ export default function AuthPage() {
                     <Button 
                       variant="link" 
                       onClick={() => setActiveTab("login")}
-                      className="ml-1 p-0 h-auto text-indigo-600 hover:text-indigo-500"
+                      className="ml-1 p-0 h-auto text-gray-600 hover:text-gray-500"
                     >
                       Sign in
                     </Button>
