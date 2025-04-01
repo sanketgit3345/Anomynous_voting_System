@@ -1,9 +1,5 @@
 import { users, type User, type InsertUser, polls, type Poll, type InsertPoll, votes, type Vote, type InsertVote } from "@shared/schema";
-import session from "express-session";
-import createMemoryStore from "memorystore";
 import { DashboardStats, PollResult, PollStats } from "@shared/types";
-
-const MemoryStore = createMemoryStore(session);
 
 // modify the interface with any CRUD methods
 // you might need
@@ -27,9 +23,6 @@ export interface IStorage {
   
   // Stats operations
   getDashboardStats(): Promise<DashboardStats>;
-  
-  // Session store
-  sessionStore: session.SessionStore;
 }
 
 export class MemStorage implements IStorage {
@@ -39,7 +32,6 @@ export class MemStorage implements IStorage {
   private userIdCounter: number;
   private pollIdCounter: number;
   private voteIdCounter: number;
-  sessionStore: session.SessionStore;
 
   constructor() {
     this.users = new Map();
@@ -48,9 +40,6 @@ export class MemStorage implements IStorage {
     this.userIdCounter = 1;
     this.pollIdCounter = 1;
     this.voteIdCounter = 1;
-    this.sessionStore = new MemoryStore({
-      checkPeriod: 86400000, // prune expired entries every 24h
-    });
     
     // Create a demo account
     this.createUser({
